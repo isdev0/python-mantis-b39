@@ -1,12 +1,13 @@
 from telnetlib import Telnet
 
-class EmailHelper:
+class SrvEmailHelper:
 
     def __init__(self, app):
         self.app = app
 
     def ensure_user_exists(self, username, password):
-        session = EmailHelper.Session("localhost", 4555, "root", "root")
+        config = self.app.config["srv_email"]
+        session = SrvEmailHelper.Session(config["host"], config["port"], config["username"], config["password"])
         if session.is_users_registered(username):
             session.reset_password(username, password)
         else:

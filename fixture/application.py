@@ -2,12 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
-from fixture.email import EmailHelper
+from fixture.srv_email import SrvEmailHelper
+from fixture.signup import SignupHelper
+from fixture.mail import MailHelper
 
 
 class Application:
 
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -21,10 +23,13 @@ class Application:
 
         self.wd.maximize_window()
         self.wd.implicitly_wait(0.25)
-        self.base_url = base_url
+        self.config = config
+        self.base_url = self.config["web"]["base_url"]
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
-        self.email = EmailHelper(self)
+        self.srv_email = SrvEmailHelper(self)
+        self.signup = SignupHelper(self)
+        self.mail = MailHelper(self)
 
     def is_valid(self):
         try:
