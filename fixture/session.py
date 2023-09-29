@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 
 
@@ -20,8 +21,7 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         self.app.open_internal_page("Logout")
-        # wd.find_element(By.NAME, "user")
-        # time.sleep(0.25)
+        time.sleep(0.25)
 
     def is_login(self):
         wd = self.app.wd
@@ -35,7 +35,6 @@ class SessionHelper:
         return wd.find_element(By.ID, "logged-in-user").text
 
     def do_login(self, username, password):
-        wd = self.app.wd
         if self.is_login():
             if self.is_login_as(username):
                 return

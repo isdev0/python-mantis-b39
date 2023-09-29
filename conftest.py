@@ -1,11 +1,13 @@
+import importlib
 import os
 import json
 import pytest
 from fixture.application import Application
+from fixture.db import DbFixture
 
 
 fixture = None
-config  = None
+config = None
 
 
 def load_config(file):
@@ -28,6 +30,16 @@ def app(request):
     return fixture
 
 
+@pytest.fixture(scope="session")
+def db(request):
+    db_config = load_config(request.config.getoption("--config"))['db']
+    dbfixture = DbFixture(host=db_config["host"], port=db_config["port"], database=db_config["database"], user=db_config["user"], password=db_config["password"])
+    def fin():
+        dbfixture.destroy()
+    request.addfinalizer(fin)
+    return dbfixture
+
+
 @pytest.fixture(scope="session", autouse=True)
 def terminate(request):
     def fin():
@@ -41,3 +53,12 @@ def terminate(request):
 def pytest_addoption(parser):
     parser.addoption("--browser",  action="store", default="firefox")
     parser.addoption("--config",   action="store", default="config.json")
+
+def pytest_generate_tests(metafunc):
+    for fixture in metafunc.fixturenames:
+        if fixture.startswith("data_"):
+            testdata = load_from_module(fixture[5:])
+            metafunc.parametrize(fixture, testdata, ids=[str(x) for x in testdata])
+
+def load_from_module(module):
+    return importlib.import_module("data.%s" % module).testdata

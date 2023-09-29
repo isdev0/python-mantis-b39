@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fixture.session import SessionHelper
+from fixture.project import ProjectHelper
 
 
 class Application:
@@ -19,9 +19,10 @@ class Application:
             raise ValueError("Browser '%s' undefined" % browser)
 
         self.wd.maximize_window()
-        self.wd.implicitly_wait(0.5)
-        self.session    = SessionHelper(self)
-        self.base_url   = base_url
+        self.wd.implicitly_wait(0.25)
+        self.base_url = base_url
+        self.session = SessionHelper(self)
+        self.project = ProjectHelper(self)
 
     def is_valid(self):
         try:
