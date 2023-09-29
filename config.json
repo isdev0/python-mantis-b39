@@ -10,5 +10,10 @@
     "database": "bugtracker1320",
     "user": "root",
     "password": ""
+  },
+  "ftp": {
+    "host": "localhost",
+    "username": "mantis",
+    "password": "mantis"
   }
 }
