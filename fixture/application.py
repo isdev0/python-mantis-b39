@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
+from fixture.email import EmailHelper
 
 
 class Application:
@@ -23,6 +24,7 @@ class Application:
         self.base_url = base_url
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
+        self.email = EmailHelper(self)
 
     def is_valid(self):
         try:
