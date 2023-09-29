@@ -30,10 +30,10 @@ class ProjectHelper:
         pass
 
     def delete_by_id(self, id):
-        pass
-
-    def count(self):
-        pass
+        wd = self.app.wd
+        self.app.open_external_page(self.app.base_url + "/manage_proj_edit_page.php?project_id=%s" % str(id))
+        wd.find_element(By.CSS_SELECTOR, "div[id='project-delete-div'] input.button[type='submit']").click()
+        wd.find_element(By.CSS_SELECTOR, "div.confirm-msg input.button[type='submit']").click()
 
     def get_all(self):
         return []
