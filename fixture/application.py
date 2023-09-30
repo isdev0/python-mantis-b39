@@ -5,6 +5,7 @@ from fixture.project import ProjectHelper
 from fixture.srv_email import SrvEmailHelper
 from fixture.signup import SignupHelper
 from fixture.mail import MailHelper
+from fixture.soap import SoapHelper
 
 
 class Application:
@@ -30,6 +31,7 @@ class Application:
         self.srv_email = SrvEmailHelper(self)
         self.signup = SignupHelper(self)
         self.mail = MailHelper(self)
+        self.soap = SoapHelper(self)
 
     def is_valid(self):
         try:
