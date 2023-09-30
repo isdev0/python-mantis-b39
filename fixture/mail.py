@@ -35,4 +35,4 @@ class MailHelper:
             inputFile = BytesIO(text)
             quopri.decode(inputFile, outputFile)
             return outputFile.getvalue().decode('utf-8')
-        else: return text
+        else: return text.decode('utf-8')
