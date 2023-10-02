@@ -2,8 +2,8 @@ from model.project import Project
 
 
 def test_add_project(app, data_projects):
-    username = "administrator"
-    password = "secret"
+    username = app.config["web"]["username"]
+    password = app.config["web"]["password"]
     app.session.do_login(username, password)
 
     old_projects = app.soap.get_all_projects(username, password)

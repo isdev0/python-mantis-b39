@@ -3,8 +3,8 @@ from model.project import Project
 
 
 def test_delete_random_project(app, db):
-    username = "administrator"
-    password = "secret"
+    username = app.config["web"]["username"]
+    password = app.config["web"]["password"]
     app.session.do_login(username, password)
 
     if len(db.get_all_projects()) == 0:
